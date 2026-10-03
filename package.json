@@ -1,0 +1,13 @@
+{
+  "name": "flight-sim-3d",
+  "version": "1.0.0",
+  "description": "A 3D flight simulator built with Three.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "three": "^0.169.0"
+  }
+}

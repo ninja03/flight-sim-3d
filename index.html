@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>3D Flight Simulator</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "/node_modules/three/build/three.module.js",
+      "three/addons/": "/node_modules/three/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="app"></canvas>
+
+  <div id="hud">
+    <div class="panel">
+      <div class="row"><span>速度</span><span><b id="hud-speed">0</b> km/h</span></div>
+      <div class="row"><span>高度</span><span><b id="hud-alt">0</b> m</span></div>
+      <div class="row"><span>昇降率</span><span><b id="hud-vs">0</b> m/s</span></div>
+      <div class="row"><span>方角</span><span><b id="hud-head">000</b>°</span></div>
+      <div class="row"><span>スロットル</span><span><b id="hud-thr">0%</b></span></div>
+      <div class="row"><span>ゲート</span><span><b id="hud-score">0/0</b></span></div>
+      <div class="row"><span>視点</span><span><b id="hud-mode">CHASE</b></span></div>
+    </div>
+  </div>
+
+  <div id="help">
+    <b>操作</b>
+    <ul>
+      <li>W / S : ピッチ（機首下げ / 機首上げ）</li>
+      <li>A / D : ロール（左右の傾き）</li>
+      <li>Q / E : ラダー（左右旋回）</li>
+      <li>Shift / Ctrl : スロットル 増 / 減</li>
+      <li>Space : エアブレーキ</li>
+      <li>C : 視点切替 &nbsp;·&nbsp; R : リセット</li>
+    </ul>
+  </div>
+
+  <div id="touch" class="hidden"></div>
+
+  <div id="help-touch">
+    <b>操作</b>
+    <ul>
+      <li>左スティック : ピッチ / ロール</li>
+      <li>▲▼ : スロットル 増 / 減</li>
+      <li>BRAKE : エアブレーキ</li>
+      <li>CAM : 視点切替 · RST : リセット</li>
+    </ul>
+  </div>
+
+  <div id="message"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
