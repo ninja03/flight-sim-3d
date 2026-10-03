@@ -3,17 +3,34 @@
 Three.js で作った、ブラウザで動くアーケード調の 3D フライトシミュレーターです。
 ビルドツール不使用・依存は `three` のみ。デスクトップ（キーボード）とモバイル（タッチ）の両方で遊べます。
 
+## 公開サイト
+
+🌐 **https://ninja03.github.io/flight-sim-3d/**
+
+`main` ブランチに push すると GitHub Actions（`.github/workflows/pages.yml`）が
+静的サイトをビルドして自動デプロイします。
+
 ## 起動方法
 
 ```bash
-npm install
+npm install   # three を取得し、postinstall で vendor/ に ESM ビルドをコピー
 npm start
 ```
 
 ブラウザで <http://localhost:5173> を開くと起動します（ポートは `PORT` 環境変数で変更可能）。
 
-> `index.html` は import map で `node_modules/three/...` を直接参照しているため、
-> ビルド手順は不要ですが `npm install` は必須です。
+> `index.html` の import map は `./vendor/three.module.min.js` を参照します。
+> このファイルは `scripts/vendor-three.js` が `node_modules/three/build/` からコピーする
+> 生成物なので、コミット対象外（`.gitignore`）です。`npm install` で自動的に生成されます。
+
+### npm スクリプト
+
+| コマンド | 内容 |
+| --- | --- |
+| `npm start` / `npm run dev` | 静的サーバーを起動（<http://localhost:5173>） |
+| `npm run vendor` | `node_modules/three/build` から `vendor/` へ three をコピー |
+| `npm run pages` | デプロイ用の静的サイトを `dist/` に組み立てる |
+
 
 ## 遊び方
 
@@ -61,10 +78,15 @@ npm start
 
 ```
 .
-├── index.html        # HUD / ヘルプ / import map
-├── style.css         # HUD とタッチコントロールのスタイル
-├── server.js         # 依存ゼロの静的ファイルサーバー
+├── index.html            # HUD / ヘルプ / import map
+├── style.css             # HUD とタッチコントロールのスタイル
+├── server.js             # 依存ゼロの静的ファイルサーバー（開発用）
 ├── package.json
+├── scripts/
+│   ├── vendor-three.js   # three の ESM ビルドを vendor/ へコピー
+│   └── build-pages.js    # デプロイサイトを dist/ に組み立て
+├── .github/workflows/
+│   └── pages.yml         # GitHub Pages へ自動デプロイ
 └── src/
     ├── main.js       # 初期化・ゲームループ・ゲート判定
     ├── aircraft.js   # 機体のモデルと飛行物理
@@ -75,6 +97,12 @@ npm start
     ├── hud.js        # 計器表示
     └── touch.js      # 画面内タッチコントロール
 ```
+
+生成されるディレクトリ（コミット対象外）:
+
+- `vendor/` … three の ESM ビルド（`npm install` で生成）
+- `dist/` … Pages にアップロードされる静的サイト（`npm run pages` で生成）
+
 
 ## 技術スタック
 
