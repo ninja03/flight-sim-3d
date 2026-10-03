@@ -71,8 +71,10 @@ export class TouchControls {
       const dz = R * 0.22; // deadzone so light rests don't move the plane
       this.input.setTouch('rollRight', dx > dz);
       this.input.setTouch('rollLeft', dx < -dz);
-      this.input.setTouch('pitchUp', dy < -dz);
-      this.input.setTouch('pitchDown', dy > dz);
+      // Match the desktop / yoke convention: push the stick UP = nose DOWN,
+      // pull it DOWN = nose UP (same as W = 機首下げ / S = 機首上げ).
+      this.input.setTouch('pitchDown', dy < -dz);
+      this.input.setTouch('pitchUp', dy > dz);
     };
 
     const start = (e) => {
